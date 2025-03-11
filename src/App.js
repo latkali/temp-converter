@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import {
+    TextInput
+} from "react-native";
 function App() {
+   const [number, setNumber] = useState("");
+   const handleNumberChange = (text) => {
+       if (!isNaN(text)) {
+           setNumber(text);
+       }
+   };
+  const [count, setCount] = useState(0);
+  const convF = () => setCount((number * 9/5) + 32);
+  const convCel = () => setCount((number - 32) * 5/9);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>Temperature Converter</h1>
+      <h2>Temperature: {count}°</h2>
+          <TextInput
+              value={number}
+              onChangeText={handleNumberChange}
+              keyboardType="numeric"
+              placeholder="Enter a number..."
+          />
+      <button onClick={convCel} style={{ margin: '5px' }}>Convert to Celcius</button>
+      <button onClick={convF} style={{ margin: '5px' }}>Convert to Fahrenheit</button>
     </div>
   );
 }
-
 export default App;
